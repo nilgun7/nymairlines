@@ -23,4 +23,7 @@ public class Flight {
     private LocalDateTime arrivalTime;
     private String flightNumber;
     private Double price;
+
+    @Column(nullable = false)
+    private Integer availableSeats;
 }

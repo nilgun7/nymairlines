@@ -5,9 +5,9 @@ spring:
   application:
     name: flight-service
   datasource:
-    url: jdbc:postgresql://localhost:5435/nymairlines_flight
+    url: jdbc:postgresql://localhost:5435/flight_db
     username: postgres
-    password: postgre
+    password: password
   jpa:
     hibernate:
       ddl-auto: update

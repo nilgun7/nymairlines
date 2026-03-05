@@ -1,0 +1,15 @@
+services:
+  postgres-db:
+    image: postgres:15
+    container_name: nymairlines-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgre
+      POSTGRES_DB: nymairlines_flight # Başlangıçta bu db oluşacak
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

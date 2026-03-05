@@ -25,6 +25,7 @@
         <module>eureka-server</module>
         <module>api-gateway</module>
         <module>flight-service</module>
+        <module>booking-service</module>
     </modules>
 
     <dependencyManagement>
