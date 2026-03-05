@@ -5,7 +5,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # 2. Aşama: Run (Sadece gerekli olan jar dosyasını çalıştırma)
-FROM openjdk:17-jdk-slim
+FROM amazoncorretto:21.0.2-alpine3.19
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]

@@ -3,7 +3,7 @@ WORKDIR /app
 COPY . .
 RUN mvn clean package -DskipTests
 
-FROM openjdk:17-jdk-slim
+FROM amazoncorretto:21.0.2-alpine3.19
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8761
