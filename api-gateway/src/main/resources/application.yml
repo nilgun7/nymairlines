@@ -11,30 +11,45 @@ spring:
           enabled: true
           lower-case-service-id: true
       routes:
-        - id: flight-service-docs
-          uri: lb://flight-service
-          predicates:
-            - Path=/v3/api-docs/flight-service
+        # Flight Service API Rotaları
         - id: flight-service
           uri: lb://flight-service
           predicates:
             - Path=/api/v1/flights/**
 
+        # Flight Service Swagger Döküman Rotası
+        - id: flight-service-docs
+          uri: lb://flight-service
+          predicates:
+            - Path=/v3/api-docs/flight-service
+          filters:
+            - RewritePath=/v3/api-docs/flight-service, /v3/api-docs
+
+        # User Service API Rotaları
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/v1/users/**
+
+        # User Service Swagger Döküman Rotası
+        - id: user-service-docs
+          uri: lb://user-service
+          predicates:
+            - Path=/v3/api-docs/user-service
+          filters:
+            - RewritePath=/v3/api-docs/user-service, /v3/api-docs
+
 springdoc:
-  enable-native-support: true
-  api-docs:
-    enabled: true
   swagger-ui:
     path: /swagger-ui.html
-    config-url: /v3/api-docs/swagger-config
+    # Gateway üzerinden tüm servisleri görebilmek için gruplama
     urls:
       - name: Flight Service
         url: /v3/api-docs/flight-service
-        displayName: Flight Service
+      - name: User Service
+        url: /v3/api-docs/user-service
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
-    register-with-eureka: true
-    fetch-registry: true

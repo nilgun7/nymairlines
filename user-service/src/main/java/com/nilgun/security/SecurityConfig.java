@@ -17,23 +17,24 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // REST API mimarisinde CSRF koruması genellikle devre dışı bırakılır.
                 .csrf(AbstractHttpConfigurer::disable)
-
-                // İstek bazlı yetkilendirme kuralları
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/api/v1/users/register",
                                 "/v3/api-docs/**",
+                                "/v3/api-docs",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
                                 "/swagger-resources/**",
-                                "/webjars/**"
-                        ).permitAll() // Kayıt endpoint'ine herkes erişebilir
-                        .anyRequest().authenticated() // Diğer tüm isteklere kimlik doğrulaması şartı
-                )
+                                "/webjars/**",
+                                "/configuration/**"
+                        ).permitAll()
 
-                // Mikroservislerde oturum (Session) yönetimi Stateless (durumsuz) olmalıdır.
+                        // 2. Senin kayıt endpoint'in
+                        .requestMatchers("/api/v1/users/register").permitAll()
+
+                        // 3. Diğer her şey kilitli
+                        .anyRequest().authenticated()
+                )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );
