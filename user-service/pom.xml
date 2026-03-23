@@ -10,6 +10,8 @@
     </parent>
 
     <artifactId>user-service</artifactId>
+    <name>user-service</name>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
